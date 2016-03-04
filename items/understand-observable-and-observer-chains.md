@@ -50,7 +50,7 @@ Observable<Integer> o3 = o2.map(x -> x * x);
 
 We can diagram this as:
 
-TODO: image
+![Chain of Observable instances](images/observable-chain.png)
 
 And now let us dissect what happens when the client invokes `subscribe` on `o3`.
 
@@ -60,13 +60,13 @@ We often talk about subscribing to `Observable` instances, and we talk about `Ob
 
 Above, when the client invokes `subscribe` on `o3`, it registers itself as the most downstream observer on a chain of observers that will be implicitly created:
 
-TODO: image
+![Observer subscribing to o3](images/observer-chain-subscribe-o3.png)
 
 `o3` then implicitly calls `subscribe` on its upstream `Observable` instance, which is `o2`. To this `subscribe` method it passes an observer implementation that propagates all events to the observer that the client passed to the `subscribe` method of `o3`. But the observer implementation provided by `o3` also implements the behavior that `o3` was constructed with. Namely, the observer squares a value before propagating it. You can think of its `onNext` method as similar to:
 
 ```java
 void onNext(T value) {
-    // func is x -> x * x, provided on construction
+    // func is x -> x * x, provided on construction of o3
     final T transformedValue = func.call(value);
     downstreamObserver.onNext(transformedValue);
 }
@@ -74,13 +74,13 @@ void onNext(T value) {
 
 We can diagram this as:
 
-TODO: image
+![Observer subscribing to o2](images/observer-chain-subscribe-o2.png)
 
 Again, `o3` implicitly calls `subscribe` on `o2`. This repeats a similar process, where `o2` implicitly calls `subscribe` on `o1`. `o2` passes to this method an observer implementation that only propagates values that are odd, which again is the behavior that it was constructed with. You can think of the `onNext` method of this observer as similar to:
 
 ```java
 void onNext(T value) {
-    // func is (x % 2) == 1, provided on construction
+    // func is x -> (x % 2) == 1, provided on construction of o2
     final boolean isSatisfied = func.call(value);
     if (isSatisfied) {
         downstreamObserver.onNext(value);
@@ -90,7 +90,7 @@ void onNext(T value) {
 
 We can diagram this as:
 
-TODO: image
+![Observer subscribing to o1](images/observer-chain-subscribe-o1.png)
 
 Again, `o2` implicitly calls `subscribe` on `o1`. But note that `o1` has no upstream `Observable` instance that it can invoke `subscribe` on. Instead, it is this call that completes the observer chain and begins the emission of events.
 
