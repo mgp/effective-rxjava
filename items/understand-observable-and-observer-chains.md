@@ -6,8 +6,8 @@ To begin our understanding, let us start with the most banal of examples:
 
 ```java
 Observable.just(1, 2, 3, 4, 5)
-    .filter(x -> (x % 2 == 1))
-    .map(x -> x * x);
+    .filter(x -> (x % 2) == 1)
+    .map(x -> x * x)
     .subscribe(integer -> System.out.println("Received value: " + integer));
 ```
 
