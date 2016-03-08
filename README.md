@@ -15,4 +15,6 @@ For each rule I've attempted to provide relevant example code -- most of which i
 * [Optimize your subscribers](items/optimize-your-subscribers.md)
 * [Use `compose` for operator sequences](items/use-compose-for-operator-sequences.md)
 * [Emit immutable values](items/emit-immutable-values.md)
+* [Test emitted values using `TestObserver`](items/test-emitted-values-using-testobserver.md)
+* [Test work scheduling using `TestScheduler`](items/test-work-scheduling-using-testscheduler.md)
 
