@@ -8,6 +8,7 @@ For each rule I've attempted to provide relevant example code -- most of which i
 
 * [Use Retrolambda](items/use-retrolambda.md)
 * [Understand `Observable` and observer chains](items/understand-observable-and-observer-chains.md)
+* [Understand `subscribeOn` and `observeOn`](items/understand-subscribeon-and-observeon.md)
 * [Understand `switchMap`](items/understand-switch-map.md)
 * [Convert functions to `Observable`](items/convert-functions-to-observable.md)
 * [Convert callbacks to `Observable`](items/convert-callbacks-to-observable.md)
