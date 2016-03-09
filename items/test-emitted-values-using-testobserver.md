@@ -18,7 +18,7 @@ Below we demonstrate an example of the second strategy from the [Khan Academy An
 
 A user of the Khan Academy Android application can download videos for offline viewing. As a video downloads, an `Observable` emits `DownloadEvent` instances that reflect the progress of the download. We want to observe these events so that we can display and update a notification for the download:
 
-[image]
+![Notification updating as a video downloads](images/download-video-notification.gif)
 
 This notification contains the title of the downloading video. The title is a property of the `ContentItem` that represents the video. However, the `DownloadEvent` that we receive has only a `ContentItemIdentifier` property, which is only a unique identifier for a `ContentItem` instance. We can pass the `ContentItemIdentifier` to the `fetchContentItem` method of a `ContentDatabase` implementation:
 
