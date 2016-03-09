@@ -59,29 +59,40 @@ final Observable<ByteStreamProgress> throttledObservable =
         );
 ```
 
-After we have created the throttled `Observable` instance, we first subscribe to it with a `TestObserver`. We then emit `ByteSteamProgress` instances on `progressSubject`. By observing the values emitted by the throttled `Observable` instance, we assert its correctness:
+After we have created the throttled `Observable` instance, we first subscribe to it with a `TestObserver`. We then emit a sequence of `ByteSteamProgress` instances on `progressSubject`:
 
 ```java
-final long startTime = 1;
 // Emit incomplete progress with 10 and 20 bytes consumed in the first window.
-testScheduler.advanceTimeTo(startTime, TimeUnit.MILLISECONDS);
+testScheduler.advanceTimeTo(1, TimeUnit.MILLISECONDS);
 progressSubject.onNext(ByteStreamProgress.create(10, false));
-testScheduler.advanceTimeTo(startTime + sWindowDuration - 1, TimeUnit.MILLISECONDS);
+testScheduler.advanceTimeTo(2, TimeUnit.MILLISECONDS);
 progressSubject.onNext(ByteStreamProgress.create(20, false));
-// Emit incomplete progress with 30 bytes consumed in the second window.
-testScheduler.advanceTimeTo(startTime + sWindowDuration + 1, TimeUnit.MILLISECONDS);
-progressSubject.onNext(ByteStreamProgress.create(30, false));
-// Emit complete progress with 40 bytes consumed in the second window.
-testScheduler.advanceTimeTo(startTime + sWindowDuration + 2, TimeUnit.MILLISECONDS);
-progressSubject.onNext(ByteStreamProgress.create(40, true));
 
+// Emit incomplete progress with 30 and 40 bytes consumed in the second window.
+testScheduler.advanceTimeTo(windowDuration + 1, TimeUnit.MILLISECONDS);
+progressSubject.onNext(ByteStreamProgress.create(30, false));
+testScheduler.advanceTimeTo(windowDuration + 2, TimeUnit.MILLISECONDS);
+progressSubject.onNext(ByteStreamProgress.create(40, false));
+
+// Emit complete progress with 50 bytes consumed in the second window.
+testScheduler.advanceTimeTo(windowDuration + 3, TimeUnit.MILLISECONDS);
+progressSubject.onNext(ByteStreamProgress.create(50, true));
+```
+
+We emit incomplete `ByteStreamProgress` instances with `10` and then `20` bytes in the first window. The `Observable` returned by `throttledObservable` should emit only the first instance in this pair. Similarly, we emit incomplete `ByteStreamProgress` instances with `30` and then `40` bytes in the second window. Again, `throttledObservable` should emit only the first instance in this pair.
+
+Finally, we emit a complete `ByteStreamProgress` instance with `50` bytes in the second window. The `Observable` returned by `throttledObservable` should not throttling it, and consequently emit it.
+
+To assert this behavior, we create the expected sequence of `ContentDownloadEvent` values and pass it to method `assertReceivedOnNext` of `TestObserver`:
+
+```java
 final List<ByteStreamProgress> expectedByteStreamProgress = ImmutableList.of(
         ByteStreamProgress.create(10, false),
         ByteStreamProgress.create(30, false),
-        ByteStreamProgress.create(40, true)
+        ByteStreamProgress.create(50, true)
 );
 testObserver.assertReceivedOnNext(expectedByteStreamProgress);
 ```
 
-Note that the test above takes less than a millisecond to run on my computer, even though it simulates over 500 milliseconds passing. Use a `TestScheduler` to keep your tests fast.
+Note that the test above takes less than a millisecond to run on my computer, even though it simulates over 500 milliseconds passing. Use `TestScheduler` to keep your tests fast.
 
