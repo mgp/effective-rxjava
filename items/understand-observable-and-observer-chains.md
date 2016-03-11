@@ -27,7 +27,7 @@ However, just as I did, they may fail to understand why code like the following 
 mBookmarkDatabase.addBookmark(contentItemId);
 ```
 
-The `addBookmark` method returns an `Observable<Boolean>` that emits `true` if a new bookmark was added for the content item with the given identifier, or emits `false` if such a bookmark already existed. (This is similar to the `add` method of `Collection` returning `true` if the collection was changed.) But in this case, we do not case about which value is emitted, and so the returned `Observable` is not assigned to a value.
+The `addBookmark` method returns an `Observable<Boolean>` that emits `true` if a new bookmark was added for the content item with the given identifier, or emits `false` if such a bookmark already existed. (This is similar to the `add` method of `Collection` returning `true` if the collection was changed.) But in this case, we do not care about which value is emitted, and so the returned `Observable` is not assigned to a value.
 
 But the statement above does not write the bookmark to the database if it does not already exist. This is because the returned `Observable` is not *subscribed to*, either directly or through a chain of other `Observable` instances.
 
