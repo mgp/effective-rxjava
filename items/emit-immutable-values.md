@@ -102,7 +102,7 @@ Other conveniences from AutoValue include:
 
 See the [AutoValue documentation](https://github.com/google/auto/tree/master/value) for more details.
 
-If you are developing for Android, consider the [AutoParcel](https://github.com/frankiesardo/auto-parcel) fork. It generates value types that implement the `Parcelable` interface. This allows you to easily persist instances in a `Bundle`, which may be useful when specifying `Intent` parameters or saving the state of an activity or fragment.
+If you are developing for Android, consider integrating the [`Parcelable` extension for AutoValue](https://github.com/rharter/auto-value-parcel). As its name suggests, it generates value types that implement the `Parcelable` interface. This allows you to easily persist instances in a `Bundle`, which may be useful when specifying `Intent` parameters or saving the state of an activity or fragment.
 
 #### Use Guava
 
