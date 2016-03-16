@@ -102,6 +102,8 @@ Other conveniences from AutoValue include:
 
 See the [AutoValue documentation](https://github.com/google/auto/tree/master/value) for more details.
 
+If you are developing for Android, consider the [AutoParcel](https://github.com/frankiesardo/auto-parcel) fork. It generates value types that implement the `Parcelable` interface. This allows you to easily persist instances in a `Bundle`, which may be useful when specifying `Intent` parameters or saving the state of an activity or fragment.
+
 #### Use Guava
 
 [Guava](https://github.com/google/guava) contains several of Google's core libraries for its Java based projects. Most notably it includes [immutable collection implementations](https://github.com/google/guava/wiki/ImmutableCollectionsExplained), thereby allowing you to construct immutable `List`, `Map`, `Set`, `SortedMap`, and `SortedSet` instances. This is possible because the mutating methods of each collection interface, such as `add`, `set`, or `remove`, are defined as optional operations. The underlying implementation can choose to implement the method as specified by the interface, or throw an `UnsupportedOperationException`. Guava chooses the latter.
