@@ -35,7 +35,7 @@ Again, to understand how RxJava code executes, you must understand this chain.
 
 #### Creating an `Observable` chain
 
-Factory methods like `just` and `filter` and `map` above return `Observable<T>` instances. Whereas `just` is a static factory method, `filter` and `map` are instance factory methods invoked on an existing `Observable` instance. These two categories of factory methods have different state, different behavior, and a different purpose:
+Factory methods like `just` and `filter` and `map` above return `Observable<T>` instances. Whereas `just` is a static factory method invoked on the `Observable` class, `filter` and `map` are instance factory methods invoked on an existing `Observable` instance. These two categories of factory methods have different state, different behavior, and a different purpose:
 
 * Typically, an `Observable` created from a static factory has no upstream `Observable` instance. It is the root of any chain. It is constructed with some "work" to perform, which we discuss below.
 * An `Observable` created from an instance factory method has an upstream `Observable` instance. This upstream `Observable` instance is the instance on which the factory method was invoked. It is an intermediate or end `Observable` of any chain. It is constructed with some logic to filter or transform emitted values, which we discuss below.
