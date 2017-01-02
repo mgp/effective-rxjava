@@ -93,5 +93,5 @@ public class ObservableContentDatabase implements Closeable {
 
 Each of the `public` methods that return an `Observable` uses the `private` method `subscribeOnScheduler` to create that `Observable`. That method accepts a `Func0` parameter specifying the work to execute on the `Scheduler` instance `mScheduler`. It uses our `makeObservable` method to convert that work into an `Observable`, and uses the `subscribeOn` operator to ensure that it is executed on the `Scheduler` instance `mScheduler`.
 
-It up to a client, upon subscribing to the `Observable` instances from `ObservableContentDatabase`, to invoke `observeOn(AndroidSchedulers.mainThread())` if necessary.
+It is up to a client, upon subscribing to the `Observable` instances from `ObservableContentDatabase`, to invoke `observeOn(AndroidSchedulers.mainThread())` if necessary.
 
