@@ -22,7 +22,7 @@ Upon the upstream observable emitting the *first value* of type `T`, that value 
 
 The interesting part is when the upstream observable emits the *next value* of type `T`. Again, this value is passed to the provided function, which returns another value of type `Observable<R>`. At this point, downstream subscribers will stop receiving events emitted by the previously created `Observable<R>`, and will start receiving events emitted by this `Observable<R>`. These downstream subscribers are unaware of this upstream change.
 
-If you have read the [item on understanding subscriber chains](understand-subscriber-chains.md), you can intuit how `switchMap` works: Whenever the function returns a new `Observable<R>`, the `Observable<R>` returned by the `switchMap` operator implicitly unsubscribes from the last `Observable<R>` returned, and then implicitly subscribes to this new `Observable<R>` returned.
+If you have read the [item on understanding subscriber chains](understand-observable-and-observer-chains.md), you can intuit how `switchMap` works: Whenever the function returns a new `Observable<R>`, the `Observable<R>` returned by the `switchMap` operator implicitly unsubscribes from the last `Observable<R>` returned, and then implicitly subscribes to this new `Observable<R>` returned.
 
 To demonstrate this power, let's look at an example from the [Khan Academy Android application](https://play.google.com/store/apps/details?id=org.khanacademy.android).
 
