@@ -1,6 +1,6 @@
 ### Use `compose` for operator sequences
 
-> Note that the definitive article on this subject is [Don't break the chain: use RxJava's `compose()` operator](http://blog.danlew.net/2015/03/02/dont-break-the-chain/) by Android programmer extraordinaire [Dan Lew](http://blog.danlew.net/). You're better of reading that article instead of this one, but I am including this item for completeness.
+> Note that the definitive article on this subject is [Don't break the chain: use RxJava's `compose()` operator](http://blog.danlew.net/2015/03/02/dont-break-the-chain/) by Android programmer extraordinaire [Dan Lew](http://blog.danlew.net/). You're better off reading that article instead of this one, but I am including this item for completeness.
 
 In the [Khan Academy Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android), we make extensive use of the [`Optional` class](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Optional.html) from [Google's Guava library](https://github.com/google/guava). Whereas we typically represent "absent values" by using `null`, the `Optional` class encodes the optionality of such values in the type system. This helps ensure that clients deal with such optional values in a direct manner. For example:
 
